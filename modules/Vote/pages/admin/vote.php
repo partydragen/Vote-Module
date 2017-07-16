@@ -1,7 +1,7 @@
 <?php 
 /*
- *	Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
+ *	Made by Partydragen and Samerton
+ *  https://github.com/partydragen/Vote-Module
  *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
@@ -69,9 +69,9 @@ $admin_page = 'vote';
 			if(!isset($_GET['view'])){
 				if(!isset($_GET['action']) && !isset($_GET['vote'])){
 			?>
-			<h3 style="display:inline;">Vote Sites</h3>
+			<h3 style="display:inline;"><?php echo $vote_language->get('vote', 'vote_sites'); ?></h3>
 			<span class="pull-right">
-			  <a href="/admin/vote/?action=new" class="btn btn-primary">New Vote Site</a>
+			  <a href="/admin/vote/?action=new" class="btn btn-primary"><?php echo $vote_language->get('vote', 'new_site'); ?></a>
 			</span>
 			<br /><br />
 			<?php
@@ -80,14 +80,14 @@ $admin_page = 'vote';
 				if(!count($vote_sites)){
 					// No sites defined
 			?>
-			<strong>No vote sites defined</strong>
+			<strong><?php echo $vote_language->get('vote', 'no_vote_sites'); ?></strong>
 			<?php
 				} else {
 					$n = 0;
 			?>
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					Vote Sites
+					<?php echo $vote_language->get('vote', 'vote_sites'); ?>
 				</div>
 				<div class="panel-body">
 					<?php 
@@ -100,7 +100,7 @@ $admin_page = 'vote';
 						</div>
 						<div class="col-md-2">
 							<span class="pull-right">
-								<a href="/admin/vote/?action=delete&amp;vid=<?php echo $site->id;?>" class="btn btn-warning btn-sm" onclick="return confirm('Are you sure you want to delete this site?');"><span class="fa fa-trash"></span></a>
+								<a href="/admin/vote/?action=delete&amp;vid=<?php echo $site->id;?>" class="btn btn-warning btn-sm" onclick="return confirm('<?php echo $vote_language->get('vote', 'delete_site'); ?>');"><span class="fa fa-trash"></span></a>
 							</span>
 						</div>
 					</div>
@@ -137,7 +137,7 @@ $admin_page = 'vote';
 						}
 					} else {
 					?>
-					<div class="alert alert-danger">Your vote message must be a maximum of 2048 characters</div>
+					<div class="alert alert-danger"><?php echo $vote_language->get('vote', 'message_maximum'); ?></div>
 					<?php 
 					}
 				} else {
@@ -151,11 +151,11 @@ $admin_page = 'vote';
 			<hr />
 			<form action="" method="post">
 			  <div class="form-group">
-				<label for="InputMessage">Message to display at top of Vote page <em>(This can be left blank)</em></label><br />
+				<label for="InputMessage"><?php echo $vote_language->get('vote', 'message'); ?></label><br />
 				<textarea name="message" rows="3" id="InputMessage" class="form-control"><?php echo htmlspecialchars($vote_message); ?></textarea>
 			  </div>  
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-			  <input type="submit" value="Submit" class="btn btn-primary">
+			  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
 			</form>
 				<?php 
 				} else if(isset($_GET['action'])){
@@ -202,19 +202,19 @@ $admin_page = 'vote';
 							}
 						}
 						?>
-				<h3>New Vote Site</h3>
+				<h3><?php echo $vote_language->get('vote', 'new_site'); ?></h3>
 				<form action="" method="post">
 				  <div class="form-group">
-					<label for="InputVoteName">Vote Site Name</label>
+					<label for="InputVoteName"><?php echo $vote_language->get('vote', 'vote_name'); ?></label>
 					<input type="text" id="InputVoteName" placeholder="Vote site name" name="vote_site_name" class="form-control">
 				  </div>
 				  <div class="form-group">
-					<label for="InputVoteURL">Vote Site URL <em>(With preceding http://)</em></label>
+					<label for="InputVoteURL"><?php echo $vote_language->get('vote', 'vote_url'); ?></label>
 					<input type="text" id="InputVoteURL" placeholder="Vote site URL" name="vote_site_url" class="form-control">
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-				  <input type="submit" value="Submit" class="btn btn-primary">
-				  <a href="/admin/vote" class="btn btn-warning">Back</a>
+				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
+				  <a href="/admin/vote" class="btn btn-warning"><?php echo $language->get('general', 'back'); ?></a>
 				</form>
 					<?php
 					} else if($_GET['action'] == 'edit'){
@@ -271,19 +271,19 @@ $admin_page = 'vote';
 							}
 						}
 						?>
-				<h3>Editing site</h3>
+				<h3><?php echo $vote_language->get('vote', 'edit_site'); ?></h3>
 				<form role="form" action="" method="post">
 				  <div class="form-group">
-					<label for="InputName">Vote Site Name</label>
+					<label for="InputName"><?php echo $vote_language->get('vote', 'vote_name'); ?></label>
 					<input type="text" name="vote_name" class="form-control" id="InputName" placeholder="Vote site name" value="<?php echo htmlspecialchars($site->name); ?>">
 				  </div>
 				  <div class="form-group">
-					<label for="InputURL">Vote Site URL <em>(With preceding http://)</em></label>
+					<label for="InputURL"><?php echo $vote_language->get('vote', 'vote_url'); ?></em></label>
 					<input type="text" name="vote_url" id="InputURL" placeholder="Vote site URL" class="form-control" value="<?php echo htmlspecialchars($site->site); ?>">
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-				  <input type="submit" value="Submit" class="btn btn-primary">
-				  <a href="/admin/vote" class="btn btn-warning">Back</a>
+				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
+				  <a href="/admin/vote" class="btn btn-warning"><?php echo $language->get('general', 'back'); ?></a>
 				</form>
 					<?php
 					} else if($_GET['action'] == 'delete'){

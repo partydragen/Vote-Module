@@ -1,13 +1,13 @@
 <?php 
 /*
- *	Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
+ *	Made by Partydragen and Samerton
+ *  https://github.com/partydragen/Vote-Module
  *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
- *  Members module info file
+ *  Vote module info file
  */
 
-$module_version = '2.0.0-pr2';
+$module_version = '1.0.0';
 $nameless_version = '2.0.0-pr2';
