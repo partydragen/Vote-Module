@@ -71,7 +71,7 @@ $admin_page = 'vote';
 			?>
 			<h3 style="display:inline;"><?php echo $vote_language->get('vote', 'vote_sites'); ?></h3>
 			<span class="pull-right">
-			  <a href="/admin/vote/?action=new" class="btn btn-primary"><?php echo $vote_language->get('vote', 'new_site'); ?></a>
+			  <a href="<?php echo URL::build('/admin/vote/', 'action=new'); ?>" class="btn btn-primary"><?php echo $vote_language->get('vote', 'new_site'); ?></a>
 			</span>
 			<br /><br />
 			<?php
@@ -96,11 +96,11 @@ $admin_page = 'vote';
 					?>
 					<div class="row">
 						<div class="col-md-10">
-							<?php echo '<a href="/admin/vote/?action=edit&vid=' . $site->id . '">' . htmlspecialchars($site->name) . '</a>'; ?>
+							<?php echo '<a href="' . URL::build('/admin/vote/', 'action=edit&amp;vid=' . $site->id) . '">' . htmlspecialchars($site->name) . '</a>'; ?>
 						</div>
 						<div class="col-md-2">
 							<span class="pull-right">
-								<a href="/admin/vote/?action=delete&amp;vid=<?php echo $site->id;?>" class="btn btn-warning btn-sm" onclick="return confirm('<?php echo $vote_language->get('vote', 'delete_site'); ?>');"><span class="fa fa-trash"></span></a>
+								<a href="<?php echo URL::build('/admin/vote/', 'action=delete&amp;vid=' . $site->id); ?>" class="btn btn-warning btn-sm" onclick="return confirm('<?php echo $vote_language->get('vote', 'delete_site'); ?>');"><span class="fa fa-trash"></span></a>
 							</span>
 						</div>
 					</div>
@@ -130,7 +130,7 @@ $admin_page = 'vote';
 							$queries->update('vote_settings', 1, array(
 								'value' => Input::get('message')
 							));
-							echo '<script>window.location.replace("/admin/vote/");</script>';
+							echo '<script>window.location.replace("' . URL::build('/admin/vote/') . '");</script>';
 							die();
 						} catch(Exception $e){
 							die($e->getMessage());
@@ -184,7 +184,7 @@ $admin_page = 'vote';
 											'site' => htmlspecialchars(Input::get('vote_site_url')),
 											'name' => htmlspecialchars(Input::get('vote_site_name'))
 										));
-										echo '<script>window.location.replace("/admin/vote");</script>';
+										echo '<script>window.location.replace("' . URL::build('/admin/vote') . '");</script>';
 										die();
 									} catch(Exception $e){
 										die($e->getMessage());
@@ -214,18 +214,18 @@ $admin_page = 'vote';
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
-				  <a href="/admin/vote" class="btn btn-warning"><?php echo $language->get('general', 'back'); ?></a>
+				  <a href="<?php echo URL::build('/admin/vote'); ?>" class="btn btn-warning"><?php echo $language->get('general', 'back'); ?></a>
 				</form>
 					<?php
 					} else if($_GET['action'] == 'edit'){
 						// Edit page
 						if(!is_numeric($_GET["vid"])){
-							echo '<script>window.location.replace("/admin/vote");</script>';
+							echo '<script>window.location.replace("' . URL::build('/admin/vote') . '");</script>';
 							die();
 						} else {
 							$site = $queries->getWhere("vote_sites", array("id", "=", $_GET["vid"]));
 							if(!count($site)){
-								echo '<script>window.location.replace("/admin/vote");</script>';
+								echo '<script>window.location.replace("' . URL::build('/admin/vote') . '");</script>';
 								die();
 							}
 							$site = $site[0];
@@ -253,7 +253,7 @@ $admin_page = 'vote';
 											'site' => htmlspecialchars(Input::get('vote_url')),
 											'name' => htmlspecialchars(Input::get('vote_name'))
 										));
-										echo '<script>window.location.replace("/admin/vote");</script>';
+										echo '<script>window.location.replace("' . URL::build('/admin/vote') . '");</script>';
 										die();
 									} catch(Exception $e){
 										die($e->getMessage());
@@ -283,18 +283,18 @@ $admin_page = 'vote';
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">
-				  <a href="/admin/vote" class="btn btn-warning"><?php echo $language->get('general', 'back'); ?></a>
+				  <a href="<?php echo URL::build('/admin/vote'); ?>" class="btn btn-warning"><?php echo $language->get('general', 'back'); ?></a>
 				</form>
 					<?php
 					} else if($_GET['action'] == 'delete'){
 						// Delete a site
 						if(!isset($_GET["vid"]) || !is_numeric($_GET["vid"])){
-							echo '<script>window.location.replace("/admin/vote");</script>';
+							echo '<script>window.location.replace("' . URL::build('/admin/vote') . '");</script>';
 							die();
 						}
 						try {
 							$queries->delete('vote_sites', array('id', '=' , $_GET["vid"]));
-							echo '<script>window.location.replace("/admin/vote");</script>';
+							echo '<script>window.location.replace("' . URL::build('/admin/vote') . '");</script>';
 							die();
 						} catch(Exception $e) {
 							die($e->getMessage());
