@@ -2,11 +2,11 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
- *  Core initialisation file
+ *  Vote module initialisation file
  */
 
 // Ensure module has been installed
@@ -35,19 +35,26 @@ if(!$module_installed){
 	}
 	
 	// Add to cache
-	$cache->store('module_resources', 'true');
+	$cache->store('module_vote', 'true');
 	
 }
 
-// Initialise forum language
+// Initialise vote language
 $vote_language = new Language(ROOT_PATH . '/modules/Vote/language', LANGUAGE);
 
 // Define URLs which belong to this module
 $pages->add('Vote', '/vote', 'pages/vote.php');
 $pages->add('Vote', '/admin/vote', 'pages/admin/vote.php');
 
-// Add link to navbar
-$navigation->add('vote', '<i class="fa fa-thumbs-up" aria-hidden="true"></i> ' . $vote_language->get('vote', 'vote'), URL::build('/vote'));
+// Check cache for navbar link order
+$cache->setCache('navbar_order');
+if(!$cache->isCached('vote_order')){
+    $vote_order = 4;
+    $cache->store('vote_order', 4);
+} else {
+    $vote_order = $cache->retrieve('vote_order');
+}
+$navigation->add('vote', $vote_language->get('vote', 'vote'), URL::build('/vote'), 'top', null, $vote_order);
 
 // Add link to admin sidebar
 if(!isset($admin_sidebar)) $admin_sidebar = array();
