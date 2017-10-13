@@ -35,7 +35,7 @@ if(!$module_installed){
 		));
 		$queries->create('vote_settings', array(
 			'name' => 'icon',
-			'value' => '1'
+			'value' => ''
 		));
 		} catch(Exception $e){
 			// Error
