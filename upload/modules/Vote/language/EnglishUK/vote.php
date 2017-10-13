@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -20,4 +20,7 @@ $language = array(
 	'delete_site' => 'Are you sure you want to delete this site?',
 	'message' => 'Message to display at top of Vote page <em>(This can be left blank)</em>',
 	'message_maximum' => 'Your vote message must be a maximum of 2048 characters',
+	'link_location' => 'Link Location',
+	'icon' => 'Icon',
+	'icon_example' => 'Example: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
 );

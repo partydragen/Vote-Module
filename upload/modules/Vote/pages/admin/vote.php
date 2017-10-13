@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
@@ -122,14 +122,53 @@ $admin_page = 'vote';
 					$validation = $validate->check($_POST, array(
 						'message' => array(
 							'max' => 2048
+						),
+						'link_location' => array(
+							'required' => true
+						),
+						'icon' => array(
+							'max' => 64
 						)
 					));
 					
 					if($validation->passed()){			
 						try {
-							$queries->update('vote_settings', 1, array(
-								'value' => Input::get('message')
+                            // Get link location
+                            if(isset($_POST['link_location'])){
+                                switch($_POST['link_location']){
+                                    case 1:
+                                    case 2:
+                                    case 3:
+                                    case 4:
+                                        $location = $_POST['link_location'];
+                                        break;
+                                    default:
+                                        $location = 1;
+                                }
+                            } else
+                                $location = 1;
+							
+                            // Link Location
+                            $location_id = $queries->getWhere('vote_settings', array('name', '=', 'link_location'));
+                            $location_id = $location_id[0]->id;
+							$queries->update('vote_settings', $location_id, array(
+								'value' => $location,
 							));
+
+                            // Icon
+                            $icon_id = $queries->getWhere('vote_settings', array('name', '=', 'icon'));
+                            $icon_id = $icon_id[0]->id;
+							$queries->update('vote_settings', $icon_id, array(
+								'value' => Input::get('icon'),
+							));
+							
+                            // Vote Message
+                            $message_id = $queries->getWhere('vote_settings', array('name', '=', 'vote_message'));
+                            $message_id = $message_id[0]->id;
+							$queries->update('vote_settings', $message_id, array(
+								'value' => Input::get('message'),
+							));
+
 							echo '<script>window.location.replace("' . URL::build('/admin/vote/') . '");</script>';
 							die();
 						} catch(Exception $e){
@@ -144,12 +183,33 @@ $admin_page = 'vote';
 					echo '<div class="alert alert-warning">' . $admin_language['invalid_token'] . '</div>';
 				}
 			}
+			// Get link location
+			$link_location = $queries->getWhere("vote_settings", array("name", "=", "link_location"));
+			$link_location = $link_location[0]->value;
+			
+			// Get icon
+			$icon = $queries->getWhere('vote_settings', array('name', '=', "icon"));
+			$icon = htmlspecialchars($icon[0]->value);
+
 			// Get vote message
-			$vote_message = $queries->getWhere('vote_settings', array('id', '=', 1));
+			$vote_message = $queries->getWhere('vote_settings', array('name', '=', "vote_message"));
 			$vote_message = htmlspecialchars($vote_message[0]->value);
 			?>
 			<hr />
 			<form action="" method="post">
+              <div class="form-group">
+                <label for="link_location"><?php echo $vote_language->get('vote', 'link_location'); ?></label>
+                <select class="form-control" id="link_location" name="link_location">
+                  <option value="1"<?php if($link_location == 1) echo ' selected'; ?>><?php echo $language->get('admin', 'page_link_navbar'); ?></option>
+                  <option value="2"<?php if($link_location == 2) echo ' selected'; ?>><?php echo $language->get('admin', 'page_link_more'); ?></option>
+                  <option value="3"<?php if($link_location == 3) echo ' selected'; ?>><?php echo $language->get('admin', 'page_link_footer'); ?></option>
+                  <option value="4"<?php if($link_location == 4) echo ' selected'; ?>><?php echo $language->get('admin', 'page_link_none'); ?></option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="inputIcon"><?php echo $vote_language->get('vote', 'icon'); ?></label>
+                <input type="text" class="form-control" name="icon" id="inputIcon" placeholder="<?php echo htmlspecialchars($vote_language->get('vote', 'icon_example')); ?>" value="<?php echo Output::getClean(htmlspecialchars_decode($icon)); ?>">
+              </div>
 			  <div class="form-group">
 				<label for="InputMessage"><?php echo $vote_language->get('vote', 'message'); ?></label><br />
 				<textarea name="message" rows="3" id="InputMessage" class="form-control"><?php echo htmlspecialchars($vote_message); ?></textarea>
