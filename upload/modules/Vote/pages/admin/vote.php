@@ -175,12 +175,10 @@ $admin_page = 'vote';
 							die($e->getMessage());
 						}
 					} else {
-					?>
-					<div class="alert alert-danger"><?php echo $vote_language->get('vote', 'message_maximum'); ?></div>
-					<?php 
+						$error = $vote_language->get('vote', 'message_maximum');
 					}
 				} else {
-					echo '<div class="alert alert-warning">' . $admin_language['invalid_token'] . '</div>';
+					$error = $language->get('general', 'invalid_token');
 				}
 			}
 			// Get link location
@@ -196,6 +194,7 @@ $admin_page = 'vote';
 			$vote_message = htmlspecialchars($vote_message[0]->value);
 			?>
 			<hr />
+			<?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
 			<form action="" method="post">
               <div class="form-group">
                 <label for="link_location"><?php echo $vote_language->get('vote', 'link_location'); ?></label>
