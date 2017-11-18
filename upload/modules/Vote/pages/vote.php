@@ -28,7 +28,7 @@ define('PAGE', 'vote');
   <body>
 <div class="container" style="padding-top: 5rem;">
 	<div class="card">
-	<div class="card-block">
+	<div class="card-body">
 	<br />
 	<?php 
 	$vote_message = $queries->getWhere("vote_settings", array("name", "=", "vote_message"));
