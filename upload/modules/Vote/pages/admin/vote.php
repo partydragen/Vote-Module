@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -133,36 +133,30 @@ $admin_page = 'vote';
 					
 					if($validation->passed()){			
 						try {
-                            // Get link location
-                            if(isset($_POST['link_location'])){
-                                switch($_POST['link_location']){
-                                    case 1:
-                                    case 2:
-                                    case 3:
-                                    case 4:
-                                        $location = $_POST['link_location'];
-                                        break;
-                                    default:
-                                        $location = 1;
-                                }
-                            } else
-                                $location = 1;
+							// Get link location
+							if(isset($_POST['link_location'])){
+								switch($_POST['link_location']){
+									case 1:
+									case 2:
+									case 3:
+									case 4:
+										$location = $_POST['link_location'];
+										break;
+									default:
+										$location = 1;
+								}
+							} else
+								$location = 1;
+										
+							// Update Link location cache
+							$cache->setCache('vote_module_cache');
+							$cache->store('link_location', $location);
 							
-                            // Link Location
-                            $location_id = $queries->getWhere('vote_settings', array('name', '=', 'link_location'));
-                            $location_id = $location_id[0]->id;
-							$queries->update('vote_settings', $location_id, array(
-								'value' => $location,
-							));
-
-                            // Icon
-                            $icon_id = $queries->getWhere('vote_settings', array('name', '=', 'icon'));
-                            $icon_id = $icon_id[0]->id;
-							$queries->update('vote_settings', $icon_id, array(
-								'value' => Input::get('icon'),
-							));
+							// Update Icon cache
+							$cache->setCache('vote_module_cache');
+							$cache->store('icon', Output::getClean(Input::get('icon')));
 							
-                            // Vote Message
+                            // Update Vote Message
                             $message_id = $queries->getWhere('vote_settings', array('name', '=', 'vote_message'));
                             $message_id = $message_id[0]->id;
 							$queries->update('vote_settings', $message_id, array(
@@ -181,15 +175,13 @@ $admin_page = 'vote';
 					$error = $language->get('general', 'invalid_token');
 				}
 			}
-			// Get link location
-			$link_location = $queries->getWhere("vote_settings", array("name", "=", "link_location"));
-			$link_location = $link_location[0]->value;
 			
-			// Get icon
-			$icon = $queries->getWhere('vote_settings', array('name', '=', "icon"));
-			$icon = htmlspecialchars($icon[0]->value);
+			// Retrive Link Location and Icon from cache
+			$cache->setCache('vote_module_cache');
+			$link_location = $cache->retrieve('link_location');
+			$icon = $cache->retrieve('icon');
 
-			// Get vote message
+			// Get vote 
 			$vote_message = $queries->getWhere('vote_settings', array('name', '=', "vote_message"));
 			$vote_message = htmlspecialchars($vote_message[0]->value);
 			?>
@@ -211,7 +203,7 @@ $admin_page = 'vote';
               </div>
 			  <div class="form-group">
 				<label for="InputMessage"><?php echo $vote_language->get('vote', 'message'); ?></label><br />
-				<textarea name="message" rows="3" id="InputMessage" class="form-control"><?php echo htmlspecialchars($vote_message); ?></textarea>
+				<textarea name="message" rows="3" id="InputMessage" class="form-control"><?php echo htmlspecialchars_decode($vote_message); ?></textarea>
 			  </div>  
 			  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 			  <input type="submit" value="<?php echo $language->get('general', 'submit'); ?>" class="btn btn-primary">

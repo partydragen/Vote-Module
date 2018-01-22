@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -27,15 +27,15 @@ if(!$module_installed){
 		// Insert data
 		$queries->create('vote_settings', array(
 			'name' => 'vote_message',
-			'value' => ''
+			'value' => 'You can manage this vote module in AdminCP -> Vote'
 		));
-		$queries->create('vote_settings', array(
-			'name' => 'link_location',
-			'value' => '1'
+		$queries->create('vote_sites', array(
+			'site' => 'https://mcplanet.org/',
+			'name' => 'MCPlanet (Example)'
 		));
-		$queries->create('vote_settings', array(
-			'name' => 'icon',
-			'value' => ''
+		$queries->create('vote_sites', array(
+			'site' => 'http://planetminecraft.com/',
+			'name' => 'PlanetMinecraft (Example)'
 		));
 		} catch(Exception $e){
 			// Error
@@ -44,30 +44,6 @@ if(!$module_installed){
 	
 	// Add to cache
 	$cache->store('module_vote', 'true');
-	
-}
-// Database update for pr3
-$cache->setCache('vote_module_cache');
-if(!$cache->isCached('link_location')){
-    $vote_link_location_check = $queries->getWhere('vote_settings', array('name', '=', 'link_location'));
-    if(!count($vote_link_location_check)){
-        $queries->create('vote_settings', array('name' => 'link_location', 'value' => 1));
-        $cache->store('link_location', '1');
-    } else {
-        $cache->store('link_location', $vote_link_location_check[0]->value);
-    }
-    $vote_link_location_check = null;
-}
-
-if(!$cache->isCached('icon')){
-    $vote_icon_check = $queries->getWhere('vote_settings', array('name', '=', 'icon'));
-    if(!count($vote_icon_check)){
-        $queries->create('vote_settings', array('name' => 'icon', 'value' => ''));
-        $cache->store('icon', '');
-    } else {
-        $cache->store('icon', $vote_icon_check[0]->value);
-    }
-    $vote_icon_check = null;
 }
 
 // Initialise vote language
@@ -83,13 +59,21 @@ $admin_sidebar['vote'] = array(
 	'title' => $vote_language->get('vote', 'vote'),
 	'url' => URL::build('/admin/vote')
 );
-// Get icon to navigation
-$icon = $queries->getWhere('vote_settings', array('name', '=', "icon"));
-$icon = htmlspecialchars($icon[0]->value);
 
 // navigation link location
-$link_location = $queries->getWhere("vote_settings", array("name", "=", "link_location"));
-$link_location = $link_location[0]->value;
+$cache->setCache('vote_module_cache');
+if(!$cache->isCached('link_location')){
+	$link_location = 1;
+	$cache->store('link_location', '1');
+} else {
+	$link_location = $cache->retrieve('link_location');
+}
+if(!$cache->isCached('icon')){
+	$icon = '';
+	$cache->store('icon', '');
+} else {
+	$icon = htmlspecialchars_decode($cache->retrieve('icon'));
+}
 
 switch($link_location){
 	case 1:
@@ -102,14 +86,14 @@ switch($link_location){
 		} else {
 			$vote_order = $cache->retrieve('vote_order');
 		}
-		$navigation->add('vote', $custom_page->icon . ' ' . $vote_language->get('vote', 'vote'), URL::build('/vote'), 'top', null, $vote_order);
+		$navigation->add('vote', $icon . $vote_language->get('vote', 'vote'), URL::build('/vote'), 'top', null, $vote_order);
 	break;
 	case 2:
 		// "More" dropdown
-		$navigation->addItemToDropdown('more_dropdown', 'vote', $custom_page->icon . ' ' . $vote_language->get('vote', 'vote'), URL::build('/vote'), 'top', null);
+		$navigation->addItemToDropdown('more_dropdown', 'vote', $icon . ' ' . $vote_language->get('vote', 'vote'), URL::build('/vote'), 'top', null);
 	break;
 	case 3:
 		// Footer
-		$navigation->add('vote', $custom_page->icon . ' ' . $vote_language->get('vote', 'vote'), URL::build('/vote'), 'footer', null);
+		$navigation->add('vote', $icon . $vote_language->get('vote', 'vote'), URL::build('/vote'), 'footer', null);
 	break;
 }
