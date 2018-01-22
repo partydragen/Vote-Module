@@ -49,16 +49,23 @@ if(!$module_installed){
 // Initialise vote language
 $vote_language = new Language(ROOT_PATH . '/modules/Vote/language', LANGUAGE);
 
+// AdminCP
+PermissionHandler::registerPermissions('Vote', array(
+    'admincp.vote' => $language->get('admin', 'admin_cp') . ' &raquo; ' . $vote_language->get('vote', 'vote')
+));
+
 // Define URLs which belong to this module
 $pages->add('Vote', '/vote', 'pages/vote.php');
 $pages->add('Vote', '/admin/vote', 'pages/admin/vote.php');
 
 // Add link to admin sidebar
-if(!isset($admin_sidebar)) $admin_sidebar = array();
-$admin_sidebar['vote'] = array(
-	'title' => $vote_language->get('vote', 'vote'),
-	'url' => URL::build('/admin/vote')
-);
+if($user->hasPermission('admincp.vote')){
+	if(!isset($admin_sidebar)) $admin_sidebar = array();
+	$admin_sidebar['vote'] = array(
+		'title' => $vote_language->get('vote', 'vote'),
+		'url' => URL::build('/admin/vote')
+	);
+}
 
 // navigation link location
 $cache->setCache('vote_module_cache');

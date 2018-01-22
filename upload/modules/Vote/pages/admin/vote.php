@@ -21,7 +21,10 @@ if($user->isLoggedIn()){
 			// They haven't, do so now
 			Redirect::to(URL::build('/admin/auth'));
 			die();
-		}
+		} else if(!$user->hasPermission('admincp.vote')){
+		  require(ROOT_PATH . '/404.php');
+		  die();
+        }
 	}
 } else {
 	// Not logged in
