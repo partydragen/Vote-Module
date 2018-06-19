@@ -35,7 +35,7 @@ $page = 'admin';
 $admin_page = 'vote';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
+<html lang="<?php echo(defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
   <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />
@@ -53,17 +53,14 @@ $admin_page = 'vote';
 		resize: none;
 	}
 	</style>
-	
-	<link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.css">
-  
   </head>
 
   <body>
-    <?php require('modules/Core/pages/admin/navbar.php'); ?>
+    <?php require(ROOT_PATH . '/modules/Core/pages/admin/navbar.php'); ?>
     <div class="container">
 	  <div class="row">
 		<div class="col-md-3">
-		  <?php require('modules/Core/pages/admin/sidebar.php'); ?>
+		  <?php require(ROOT_PATH . '/modules/Core/pages/admin/sidebar.php'); ?>
 		</div>
 		<div class="col-md-9">
 		  <div class="card">
@@ -76,7 +73,7 @@ $admin_page = 'vote';
 			<span class="pull-right">
 			  <a href="<?php echo URL::build('/admin/vote/', 'action=new'); ?>" class="btn btn-primary"><?php echo $vote_language->get('vote', 'new_site'); ?></a>
 			</span>
-			<br /><br />
+			<hr>
 			<?php
 				// Get vote sites from database
 				$vote_sites = $queries->getWhere('vote_sites', array('id', '<>', 0));
@@ -103,7 +100,7 @@ $admin_page = 'vote';
 						</div>
 						<div class="col-md-2">
 							<span class="pull-right">
-								<a href="<?php echo URL::build('/admin/vote/', 'action=delete&amp;vid=' . $site->id); ?>" class="btn btn-warning btn-sm" onclick="return confirm('<?php echo $vote_language->get('vote', 'delete_site'); ?>');"><span class="fa fa-trash"></span></a>
+								<a href="<?php echo URL::build('/admin/vote/', 'action=delete&amp;vid=' . $site->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('<?php echo $vote_language->get('vote', 'delete_site'); ?>');"><span class="fa fa-trash"></span></a>
 							</span>
 						</div>
 					</div>
@@ -156,8 +153,8 @@ $admin_page = 'vote';
 							$cache->store('link_location', $location);
 							
 							// Update Icon cache
-							$cache->setCache('vote_module_cache');
-							$cache->store('icon', Output::getClean(Input::get('icon')));
+							$cache->setCache('navbar_icons');
+							$cache->store('vote_icon', Input::get('icon'));
 							
                             // Update Vote Message
                             $message_id = $queries->getWhere('vote_settings', array('name', '=', 'vote_message'));
@@ -179,10 +176,13 @@ $admin_page = 'vote';
 				}
 			}
 			
-			// Retrive Link Location and Icon from cache
+			// Retrive Link Location from cache
 			$cache->setCache('vote_module_cache');
 			$link_location = $cache->retrieve('link_location');
-			$icon = $cache->retrieve('icon');
+			
+			// Retrive Icon from cache
+			$cache->setCache('navbar_icons');
+			$icon = $cache->retrieve('vote_icon');
 
 			// Get vote 
 			$vote_message = $queries->getWhere('vote_settings', array('name', '=', "vote_message"));
@@ -362,10 +362,7 @@ $admin_page = 'vote';
 		</div>
       </div>
     </div>
-	<?php require('modules/Core/pages/admin/footer.php'); ?>
-
-    <?php require('modules/Core/pages/admin/scripts.php'); ?>
-	
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/switchery/switchery.min.js"></script>
+	<?php require(ROOT_PATH . '/modules/Core/pages/admin/footer.php'); ?>
+    <?php require(ROOT_PATH . '/modules/Core/pages/admin/scripts.php'); ?>
   </body>
 </html>
