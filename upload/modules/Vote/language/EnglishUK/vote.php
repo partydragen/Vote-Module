@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *

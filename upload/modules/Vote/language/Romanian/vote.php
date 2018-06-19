@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr2
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  *
@@ -21,4 +21,7 @@ $language = array(
 	'delete_site' => 'Sigur doriți să ștergeți acest site?',
 	'message' => 'Mesaj de afișat în partea de sus a paginii de votare <em>(Acest spaţiu poate fi lăsat necompletat)</em>',
 	'message_maximum' => 'Mesajul dvs. trebuie să aibă un maxim de 2048 de caractere',
+	'link_location' => 'Link Location',
+	'icon' => 'Icon',
+	'icon_example' => 'Example: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
 );
