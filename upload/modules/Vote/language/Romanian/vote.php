@@ -21,7 +21,7 @@ $language = array(
 	'delete_site' => 'Sigur doriți să ștergeți acest site?',
 	'message' => 'Mesaj de afișat în partea de sus a paginii de votare <em>(Acest spaţiu poate fi lăsat necompletat)</em>',
 	'message_maximum' => 'Mesajul dvs. trebuie să aibă un maxim de 2048 de caractere',
-	'link_location' => 'Link Location',
-	'icon' => 'Icon',
-	'icon_example' => 'Example: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
+	'link_location' => 'Locație Link',
+	'icon' => 'iconiță',
+	'icon_example' => 'Exemplu: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
 );
