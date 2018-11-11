@@ -2,7 +2,8 @@
 /*
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr4
+ *  https://partydragen.com
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
@@ -23,4 +24,17 @@ $language = array(
 	'link_location' => 'Link Location',
 	'icon' => 'Icon',
 	'icon_example' => 'Example: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
+	
+	// Success
+	'site_created_successfully' => 'Site created successfully.',
+	'site_updated_successfully' => 'Site updated successfully.',
+	'site_deleted_successfully' => 'Site deleted successfully.',
+	
+	// Errors
+	'site_name_required' => 'A site name is required.',
+	'site_url_required' => 'A site url is required.',
+	'site_name_minimum' => 'The site name must be a minimum of 2 characters.',
+	'site_url_minimum' => 'The site url must be a minimum of 10 characters.',
+	'site_name_maximum' => 'The site name must be a maximum of 64 characters.',
+	'site_url_maximum' => 'The site url must be a maximum of 255 characters.',
 );
