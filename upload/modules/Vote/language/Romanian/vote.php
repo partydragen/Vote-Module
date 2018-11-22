@@ -27,15 +27,15 @@ $language = array(
 	'icon_example' => 'Exemplu: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
 
 	// Success
-	'site_created_successfully' => 'Site created successfully.',
-	'site_updated_successfully' => 'Site updated successfully.',
-	'site_deleted_successfully' => 'Site deleted successfully.',
+	'site_created_successfully' => 'Site-ul a fost adăugat cu succes.',
+	'site_updated_successfully' => 'Site-ul a fost actualizat cu succes.',
+	'site_deleted_successfully' => 'Site-ul a fost eliminat cu succes.',
 	
 	// Errors
-	'site_name_required' => 'A site name is required.',
-	'site_url_required' => 'A site url is required.',
-	'site_name_minimum' => 'The site name must be a minimum of 2 characters.',
-	'site_url_minimum' => 'The site url must be a minimum of 10 characters.',
-	'site_name_maximum' => 'The site name must be a maximum of 64 characters.',
-	'site_url_maximum' => 'The site url must be a maximum of 255 characters.',
+	'site_name_required' => 'Este necesar un nume pentru site.',
+	'site_url_required' => 'Este necesară o adresă URL pentru site.',
+	'site_name_minimum' => 'Numele site-ului trebuie să aibă cel puțin 2 caractere.',
+	'site_url_minimum' => 'Adresa URL a site-ului trebuie să aibă cel puțin 10 caractere.',
+	'site_name_maximum' => 'Numele site-ului trebuie să aibă maximum 64 de caractere.',
+	'site_url_maximum' => 'Adresa URL a site-ului trebuie să aibă maximum 255 de caractere.',
 );
