@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  */
@@ -35,6 +35,7 @@ foreach($sites as $site){
 	
 // Assign Smarty variables
 $smarty->assign(array(
+	'VOTE_TITLE' => $vote_language->get('vote', 'vote'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => htmlspecialchars($vote_message),
 	'SITES' => $sites_array,

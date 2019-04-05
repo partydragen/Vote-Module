@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -18,8 +18,8 @@ class Vote_Module extends Module {
 		
 		$name = 'Vote';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr5';
-		$nameless_version = '2.0.0-pr5';
+		$module_version = '2.0.0-pr6';
+		$nameless_version = '2.0.0-pr6';
 		
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 		
@@ -35,7 +35,11 @@ class Vote_Module extends Module {
 		try {
 			$data = $queries->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
 			$data = $queries->createTable("vote_sites", " `id` int(11) NOT NULL AUTO_INCREMENT, `site` varchar(512) NOT NULL, `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
-			
+		} catch(Exception $e){
+			// Error
+		}
+		
+		try {
 			// Insert data
 			$queries->create('vote_settings', array(
 				'name' => 'vote_message',
@@ -49,7 +53,11 @@ class Vote_Module extends Module {
 				'site' => 'http://planetminecraft.com/',
 				'name' => 'PlanetMinecraft (Example)'
 			));
+		} catch(Exception $e){
+			// Error
+		}
 		
+		try {
 			// Update main admin group permissions
 			$group = $queries->getWhere('groups', array('id', '=', 2));
 			$group = $group[0];
