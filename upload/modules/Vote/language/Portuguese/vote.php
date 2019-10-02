@@ -23,7 +23,7 @@ $language = array(
 	'message_maximum' => 'Sua mensagem de voto deve ser de no máximo 2.048 caracteres',
 	'link_location' => 'Local do Link',
 	'icon' => 'Ícone',
-	'icon_example' => 'Examplo: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
+	'icon_example' => 'Exemplo: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
 	
 	// Success
 	'site_created_successfully' => 'Site criado com sucesso.',
