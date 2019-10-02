@@ -7,34 +7,34 @@
  *
  *  License: MIT
  *
- *  Portuguese Language for Vote module
+ *  EnglishUK Language for Vote module
  */
 
 $language = array( 
-	'vote' => 'Vote',
-	'vote_sites' => 'Vote Sites',
-	'vote_name' => 'Vote Site Name',
-	'no_vote_sites' => 'No vote sites defined',
-	'vote_url' => 'Vote Site URL <em>(With preceding http://)</em>',
-	'new_site' => 'New Vote Site',
-	'edit_site' => 'Editing site',
-	'delete_site' => 'Are you sure you want to delete this site?',
-	'message' => 'Message to display at top of Vote page <em>(This can be left blank)</em>',
-	'message_maximum' => 'Your vote message must be a maximum of 2048 characters',
-	'link_location' => 'Link Location',
-	'icon' => 'Icon',
-	'icon_example' => 'Example: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
+	'vote' => 'Votar',
+	'vote_sites' => 'Sites de Votação',
+	'vote_name' => 'Nome do Site',
+	'no_vote_sites' => 'Nenhum site de votação definido',
+	'vote_url' => 'URL do Site de votação <em>(Com o http:// na frente)</em>',
+	'new_site' => 'Novo Site de Votação',
+	'edit_site' => 'Editando site',
+	'delete_site' => 'Tem certeza de que quer excluir esse site?',
+	'message' => 'Mensagem que aparece no topo da página de votação <em>(Isso pode ser deixado em branco)</em>',
+	'message_maximum' => 'Sua mensagem de voto deve ser de no máximo 2.048 caracteres',
+	'link_location' => 'Local do Link',
+	'icon' => 'Ícone',
+	'icon_example' => 'Examplo: <i class="fa fa-thumbs-up" aria-hidden="true"></i>',
 	
 	// Success
-	'site_created_successfully' => 'Site created successfully.',
-	'site_updated_successfully' => 'Site updated successfully.',
-	'site_deleted_successfully' => 'Site deleted successfully.',
+	'site_created_successfully' => 'Site criado com sucesso.',
+	'site_updated_successfully' => 'Site atualizado com sucesso.',
+	'site_deleted_successfully' => 'Site excluído com sucesso.',
 	
 	// Errors
-	'site_name_required' => 'A site name is required.',
-	'site_url_required' => 'A site url is required.',
-	'site_name_minimum' => 'The site name must be a minimum of 2 characters.',
-	'site_url_minimum' => 'The site url must be a minimum of 10 characters.',
-	'site_name_maximum' => 'The site name must be a maximum of 64 characters.',
-	'site_url_maximum' => 'The site url must be a maximum of 255 characters.',
+	'site_name_required' => 'O nome do site é requerido.',
+	'site_url_required' => 'O URL do site é requerido.',
+	'site_name_minimum' => 'O nome do site deve ser de no mínimo 2 caracteres.',
+	'site_url_minimum' => 'O URL do site deve ser de no mínimo 10 caracteres.',
+	'site_name_maximum' => 'O nome do site deve ser de no máximo 64 caracteres.',
+	'site_url_maximum' => 'O URL do site deve ser de no máximo 255 caracteres.',
 );
