@@ -7,7 +7,7 @@
  *
  *  License: MIT
  *
- *  EnglishUK Language for Vote module
+ *  Portuguese Language for Vote module
  */
 
 $language = array( 
