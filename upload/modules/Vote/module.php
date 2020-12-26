@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr7
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -13,19 +13,31 @@
 class Vote_Module extends Module {
 	private $_vote_language;
 	
-	public function __construct($vote_language, $pages){
+	public function __construct($vote_language, $pages, $cache){
 		$this->_vote_language = $vote_language;
 		
 		$name = 'Vote';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr7';
-		$nameless_version = '2.0.0-pr7';
+		$module_version = '2.1.0';
+		$nameless_version = '2.0.0-pr8';
 		
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 		
 		// Define URLs which belong to this module
 		$pages->add('Vote', '/vote', 'pages/vote.php', 'vote', true);
 		$pages->add('Vote', '/panel/vote', 'pages/panel/vote.php');
+		
+		// Check if module version changed
+		$cache->setCache('vote_module_cache');
+		if(!$cache->isCached('module_version')){
+			$cache->store('module_version', $module_version);
+		} else {
+			if($module_version != $cache->retrieve('module_version')) {
+				// Version have changed, Perform actions
+				$cache->store('module_version', $module_version);
+				$cache->erase('update_check');
+			}
+		}
 	}
 	
 	public function onInstall(){
@@ -153,5 +165,32 @@ class Vote_Module extends Module {
 				$navs[2]->add('vote', $this->_vote_language->get('vote', 'vote'), URL::build('/panel/vote'), 'top', null, $order + 0.1, $icon);
 			}
 		}
+		
+		// Check for module updates
+        if(isset($_GET['route']) && $user->isLoggedIn() && $user->hasPermission('admincp.update')){
+            if(rtrim($_GET['route'], '/') == '/panel/vote' || rtrim($_GET['route'], '/') == '/vote'){
+
+                $cache->setCache('vote_module_cache');
+                if($cache->isCached('update_check')){
+                    $update_check = $cache->retrieve('update_check');
+                } else {
+					require_once(ROOT_PATH . '/modules/Vote/classes/Vote.php');
+                    $update_check = Vote::updateCheck();
+                    $cache->store('update_check', $update_check, 3600);
+                }
+
+                $update_check = json_decode($update_check);
+				if(!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)){	
+                    $smarty->assign(array(
+                        'NEW_UPDATE' => str_replace('{x}', $this->getName(), (isset($update_check->urgent) && $update_check->urgent == 'true') ? $this->_vote_language->get('vote', 'new_urgent_update_available_x') : $this->_vote_language->get('vote', 'new_update_available_x')),
+                        'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
+                        'CURRENT_VERSION' => str_replace('{x}', $this->getVersion(), $this->_vote_language->get('vote', 'current_version_x')),
+                        'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $this->_vote_language->get('vote', 'new_version_x')),
+                        'UPDATE' => $this->_vote_language->get('vote', 'view_resource'),
+                        'UPDATE_LINK' => 'https://partydragen.com/resources/resource/2-vote-module/'
+                    ));
+				}
+            }
+        }
 	}
 }

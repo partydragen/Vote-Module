@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -112,11 +112,11 @@ if(!isset($_GET['action'])){
 		}
 	}
 
-	// Retrive Link Location from cache
+	// Retrieve Link Location from cache
 	$cache->setCache('nav_location');
 	$link_location = $cache->retrieve('vote_location');
 				
-	// Retrive Icon from cache
+	// Retrieve Icon from cache
 	$cache->setCache('navbar_icons');
 	$icon = $cache->retrieve('vote_icon');
 

@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  Translation by Locus
  *  https://github.com/partydragen/Vote-Module
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
@@ -37,5 +37,12 @@ $language = array(
 	'site_name_minimum' => 'Svetainės pavadinimas turi būti mažiausiai 2 simboliai.',
 	'site_url_minimum' => 'Svetainės URL turi buti mažiausiai 10 simbolių.',
 	'site_name_maximum' => 'Svetainės pavadinimas turi būti ne ilgesnis nei 64 simboliai.',
-	'site_url_maximum' => 'Svetainės URL turi būti ne ilgesnis nei 255 simboliai.'
+	'site_url_maximum' => 'Svetainės URL turi būti ne ilgesnis nei 255 simboliai.',
+	
+	// Update alerts
+	'new_update_available_x' => 'There is a new update available for the module {x}',
+	'new_urgent_update_available_x' => 'There is a new urgent update available for the module {x}. Please update as soon as possible!',
+	'current_version_x' => 'Current module version: {x}',
+	'new_version_x' => 'New module version: {x}',
+	'view_resource' => 'View Resource',
 );

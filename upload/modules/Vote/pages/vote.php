@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  */

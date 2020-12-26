@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr8
  *  German translation by Sharky009 <pascal@sharky009.de>
  *
  *  License: MIT
@@ -38,4 +38,11 @@ $language = array(
 	'site_url_minimum' => 'Die Seiten URL muss mindestens 10 Zeichen beinhalten.',
 	'site_name_maximum' => 'Der Seitenname darf nicht länger als 64 Zeichen sein.',
 	'site_url_maximum' => 'Die Seiten URL darf nicht mehr als 255 Zeichen haben.',
+	
+	// Update alerts
+	'new_update_available_x' => 'There is a new update available for the module {x}',
+	'new_urgent_update_available_x' => 'There is a new urgent update available for the module {x}. Please update as soon as possible!',
+	'current_version_x' => 'Current module version: {x}',
+	'new_version_x' => 'New module version: {x}',
+	'view_resource' => 'View Resource',
 );
