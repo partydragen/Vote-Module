@@ -1,4 +1,4 @@
-# Vote Module for NamelessMC v2.0.0 pr8
+# Vote Module for NamelessMC v2.0.0 pr9
 
 ## Installation:
 - Upload the contents of the **upload** directory straight into your NamelessMC installation's directory
@@ -8,10 +8,8 @@
 - Not compatible with other NamelessMC vote modules
 - If you are using a custom template, make sure you add the template file (in the **custom/templates/Default** or **custom/templates/DefaultRevamp** directory) to your custom template!
 
-## Minecraft Community website:
-I will love if you add your minecraft server to my Minecraft Community website, and adding your voting link to your website :)
-There is also monthly 15 USD giveaways so register today :P
-Link: [https://mccommunity.net/](https://mccommunity.net/)
+## Subscribe:
+If you like to help out with the development of my modules there is a link where you can subscribe a monthly amount [https://partydragen.com/subscribe/](https://partydragen.com/subscribe/)
 
 ## NamelessHosting:
 Create your own free NamelessMC website at NamelessHosting for free at [https://namelesshosting.com](https://namelesshosting.com/)

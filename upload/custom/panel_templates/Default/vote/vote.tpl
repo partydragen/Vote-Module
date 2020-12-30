@@ -89,13 +89,27 @@
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
 						</form>
-					</div>
-				</div>
-					
+                        
+                    </div>
+                </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+                <!-- End Page Content -->
             </div>
-        </section>
-	</div>
-	
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
+    </div>
+
+    <!-- End Wrapper -->
+</div>
+
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -115,11 +129,6 @@
             </div>
         </div>
     </div>
-	
-    {include file='footer.tpl'}
-
-</div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
 

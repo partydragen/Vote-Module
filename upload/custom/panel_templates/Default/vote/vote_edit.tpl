@@ -57,17 +57,25 @@
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
 						</form>
-					</div>
-				</div>
-					
-            </div>
-        </section>
-	</div>
-	
-    {include file='footer.tpl'}
+                    </div>
+                </div>
 
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+                <!-- End Page Content -->
+            </div>
+
+            <!-- End Main Content -->
+        </div>
+
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
+    </div>
+
+    <!-- End Wrapper -->
 </div>
-<!-- ./wrapper -->
 
 {include file='scripts.tpl'}
 
