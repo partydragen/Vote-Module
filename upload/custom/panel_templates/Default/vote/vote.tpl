@@ -90,6 +90,7 @@
                             </div>
 						</form>
                         
+                        <center><p>Vote Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a></p></center>
                     </div>
                 </div>
 

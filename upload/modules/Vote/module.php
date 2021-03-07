@@ -18,7 +18,7 @@ class Vote_Module extends Module {
 		
 		$name = 'Vote';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.2.0';
+		$module_version = '2.2.1';
 		$nameless_version = '2.0.0-pr9';
 		
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
@@ -61,8 +61,8 @@ class Vote_Module extends Module {
 				'value' => 'You can manage this vote module in StaffCP -> Vote'
 			));
 			$queries->create('vote_sites', array(
-				'site' => 'https://mccommunity.net/',
-				'name' => 'MCCommunity (Example)'
+				'site' => 'https://mc-server-list.com/',
+				'name' => 'MC-Server-List (Example)'
 			));
 			$queries->create('vote_sites', array(
 				'site' => 'http://planetminecraft.com/',
@@ -190,7 +190,7 @@ class Vote_Module extends Module {
                         'CURRENT_VERSION' => str_replace('{x}', $this->getVersion(), $this->_vote_language->get('vote', 'current_version_x')),
                         'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $this->_vote_language->get('vote', 'new_version_x')),
                         'UPDATE' => $this->_vote_language->get('vote', 'view_resource'),
-                        'UPDATE_LINK' => 'https://partydragen.com/resources/resource/2-vote-module/'
+                        'UPDATE_LINK' => Output::getClean($update_check->link)
                     ));
 				}
             }
