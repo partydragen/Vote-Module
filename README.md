@@ -1,4 +1,4 @@
-# Vote Module for NamelessMC v2.0.0 pr9
+# Vote Module for NamelessMC v2.0.0 pr10
 
 ## Installation:
 - Upload the contents of the **upload** directory straight into your NamelessMC installation's directory
@@ -6,7 +6,7 @@
 
 ## Notes:
 - Not compatible with other NamelessMC vote modules
-- If you are using a custom template, make sure you add the template file (in the **custom/templates/Default** or **custom/templates/DefaultRevamp** directory) to your custom template!
+- If you are using a custom template, make sure you add the template file (in the **custom/templates/DefaultRevamp** directory) to your custom template!
 
 ## Patreon
 If you like to help out with the development and get early access to new updates and new modules check out [https://www.patreon.com/partydragen/](https://www.patreon.com/partydragen)
