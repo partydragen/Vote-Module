@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -18,8 +18,8 @@ class Vote_Module extends Module {
 		
 		$name = 'Vote';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.3.0';
-		$nameless_version = '2.0.0-pr10';
+		$module_version = '2.3.1';
+		$nameless_version = '2.0.0-pr11';
 		
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 		
@@ -171,7 +171,9 @@ class Vote_Module extends Module {
 		
 		// Check for module updates
         if(isset($_GET['route']) && $user->isLoggedIn() && $user->hasPermission('admincp.update')){
-            if(rtrim($_GET['route'], '/') == '/panel/vote' || rtrim($_GET['route'], '/') == '/vote'){
+            // Page belong to this module?
+            $page = $pages->getActivePage();
+            if($page['module'] == 'Vote'){
 
                 $cache->setCache('vote_module_cache');
                 if($cache->isCached('update_check')){

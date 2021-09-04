@@ -3,7 +3,7 @@
  *	Made by Partydragen and Samerton
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -71,6 +71,10 @@ if(!isset($_GET['action'])){
 					$queries->update('vote_settings', $message_id, array(
 						'value' => Input::get('message'),
 					));
+                    
+                    Session::flash('staff_vote', $language->get('admin', 'settings_updated_successfully'));
+                    Redirect::to(URL::build('/panel/vote'));
+                    die();
 				} catch(Exception $e){
 					$errors[] = $e->getMessage();
 				}
