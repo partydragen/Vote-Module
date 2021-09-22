@@ -44,47 +44,8 @@ class Vote_Module extends Module {
 	}
 	
 	public function onInstall(){
-		// Queries
-		$queries = new Queries();
-		
-		try {
-			$data = $queries->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
-			$data = $queries->createTable("vote_sites", " `id` int(11) NOT NULL AUTO_INCREMENT, `site` varchar(512) NOT NULL, `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=latin1");
-		} catch(Exception $e){
-			// Error
-		}
-		
-		try {
-			// Insert data
-			$queries->create('vote_settings', array(
-				'name' => 'vote_message',
-				'value' => 'You can manage this vote module in StaffCP -> Vote'
-			));
-			$queries->create('vote_sites', array(
-				'site' => 'https://mc-server-list.com/',
-				'name' => 'MC-Server-List (Example)'
-			));
-			$queries->create('vote_sites', array(
-				'site' => 'http://planetminecraft.com/',
-				'name' => 'PlanetMinecraft (Example)'
-			));
-		} catch(Exception $e){
-			// Error
-		}
-		
-		try {
-			// Update main admin group permissions
-			$group = $queries->getWhere('groups', array('id', '=', 2));
-			$group = $group[0];
-			
-			$group_permissions = json_decode($group->permissions, TRUE);
-			$group_permissions['admincp.vote'] = 1;
-			
-			$group_permissions = json_encode($group_permissions);
-			$queries->update('groups', 2, array('permissions' => $group_permissions));
-		} catch(Exception $e){
-			// Error
-		}
+        // Initialise
+        $this->initialise();
 	}
 
 	public function onUninstall(){
@@ -92,7 +53,8 @@ class Vote_Module extends Module {
 	}
 
 	public function onEnable(){
-		// No actions necessary
+        // Check if we need to initialise again
+        $this->initialise();
 	}
 
 	public function onDisable(){
@@ -198,4 +160,66 @@ class Vote_Module extends Module {
             }
         }
 	}
+    
+    private function initialise(){
+        // Generate tables
+        try {
+            $engine = Config::get('mysql/engine');
+            $charset = Config::get('mysql/charset');
+        } catch(Exception $e){
+            $engine = 'InnoDB';
+            $charset = 'utf8mb4';
+        }
+        if(!$engine || is_array($engine))
+            $engine = 'InnoDB';
+        if(!$charset || is_array($charset))
+            $charset = 'latin1';
+        
+        $queries = new Queries();
+        
+		try {
+            if(!$queries->tableExists('vote_sites')){
+                $queries->createTable("vote_sites", " `id` int(11) NOT NULL AUTO_INCREMENT, `site` varchar(512) NOT NULL, `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+                
+                $queries->create('vote_sites', array(
+                    'site' => 'https://mc-server-list.com/',
+                    'name' => 'MC-Server-List (Example)'
+                ));
+                $queries->create('vote_sites', array(
+                    'site' => 'http://planetminecraft.com/',
+                    'name' => 'PlanetMinecraft (Example)'
+                ));
+            }
+		} catch(Exception $e){
+			// Error
+		}
+        
+        try {
+            if(!$queries->tableExists('vote_settings')){
+                $queries->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+                
+                // Insert data
+                $queries->create('vote_settings', array(
+                    'name' => 'vote_message',
+                    'value' => 'You can manage this vote module in StaffCP -> Vote'
+                ));
+            }
+        } catch(Exception $e){
+            // Error
+        }
+		
+		try {
+			// Update main admin group permissions
+			$group = $queries->getWhere('groups', array('id', '=', 2));
+			$group = $group[0];
+			
+			$group_permissions = json_decode($group->permissions, TRUE);
+			$group_permissions['admincp.vote'] = 1;
+			
+			$group_permissions = json_encode($group_permissions);
+			$queries->update('groups', 2, array('permissions' => $group_permissions));
+		} catch(Exception $e){
+			// Error
+		}
+    }
 }
