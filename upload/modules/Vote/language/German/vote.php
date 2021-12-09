@@ -40,7 +40,7 @@ $language = array(
 	'site_url_maximum' => 'Die Seiten URL darf nicht mehr als 255 Zeichen haben.',
 	
 	// Update alerts
-	'new_update_available_x' => 'Ein neues Update ist für das Modul {x} verfügarbar',
+	'new_update_available_x' => 'Ein neues Update ist für das Modul {x} verfügbar',
 	'new_urgent_update_available_x' => 'Es ist ein neues dringendes Update für das Modul {x} verfügbar. Bitte update so schnell wie möglich!',
 	'current_version_x' => 'Aktuelle Modul Version: {x}',
 	'new_version_x' => 'Neue Modul Version: {x}',
