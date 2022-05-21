@@ -40,9 +40,9 @@ $language = array(
 	'site_url_maximum' => 'Die Seiten URL darf nicht mehr als 255 Zeichen haben.',
 	
 	// Update alerts
-	'new_update_available_x' => 'There is a new update available for the module {x}',
-	'new_urgent_update_available_x' => 'There is a new urgent update available for the module {x}. Please update as soon as possible!',
-	'current_version_x' => 'Current module version: {x}',
-	'new_version_x' => 'New module version: {x}',
-	'view_resource' => 'View Resource',
+	'new_update_available_x' => 'Ein neues Update ist für das Modul {x} verfügbar',
+	'new_urgent_update_available_x' => 'Es ist ein neues dringendes Update für das Modul {x} verfügbar. Bitte update so schnell wie möglich!',
+	'current_version_x' => 'Aktuelle Modul Version: {x}',
+	'new_version_x' => 'Neue Modul Version: {x}',
+	'view_resource' => 'Ressource anzeigen',
 );
