@@ -70,9 +70,7 @@ if (!isset($_GET['action'])) {
 					$cache->store('vote_icon', Input::get('icon'));
 
 					// Update Vote Message
-					$message_id = $queries->getWhere('vote_settings', ['name', '=', 'vote_message']);
-					$message_id = $message_id[0]->id;
-					$queries->update('vote_settings', $message_id, [
+					DB::getInstance()->update('vote_settings', ['name', '=', 'vote_message'], [
 						'value' => Input::get('message'),
 					]);
 
@@ -91,7 +89,7 @@ if (!isset($_GET['action'])) {
 	}
 
 	// Get vote sites from database
-	$vote_sites = $queries->getWhere('vote_sites', ['id', '<>', 0]);
+	$vote_sites = DB::getInstance()->get('vote_sites', ['id', '<>', 0])->results();
 	$sites_array = [];
 	if (count($vote_sites)) {
 		foreach ($vote_sites as $site) {
@@ -112,7 +110,7 @@ if (!isset($_GET['action'])) {
 	$icon = $cache->retrieve('vote_icon');
 
 	// Get vote 
-	$vote_message = $queries->getWhere('vote_settings', ['name', '=', "vote_message"]);
+	$vote_message = DB::getInstance()->get('vote_settings', ['name', '=', "vote_message"])->results();
 	$vote_message = htmlspecialchars($vote_message[0]->value);
 
 	$smarty->assign([
@@ -173,7 +171,7 @@ if (!isset($_GET['action'])) {
 					if ($validation->passed()) {
 						// input into database
 						try {
-							$queries->create('vote_sites', [
+							DB::getInstance()->insert('vote_sites', [
 								'site' => htmlspecialchars(Input::get('vote_site_url')),
 								'name' => htmlspecialchars(Input::get('vote_site_name'))
 							]);
@@ -208,7 +206,7 @@ if (!isset($_GET['action'])) {
 				Redirect::to(URL::build('/panel/vote'));
 			}
 
-			$site = $queries->getWhere('vote_sites', ['id', '=', $_GET['id']]);
+			$site = DB::getInstance()->get('vote_sites', ['id', '=', $_GET['id']])->results();
 			if (!count($site)) {
 				Redirect::to(URL::build('/panel/vote'));
 				die();
@@ -247,7 +245,7 @@ if (!isset($_GET['action'])) {
 					if ($validation->passed()) {
 						// input into database
 						try {
-							$queries->update('vote_sites', $site->id, [
+							DB::getInstance()->update('vote_sites', $site->id, [
 								'site' => htmlspecialchars(Input::get('vote_site_url')),
 								'name' => htmlspecialchars(Input::get('vote_site_name'))
 							]);
@@ -281,7 +279,7 @@ if (!isset($_GET['action'])) {
 		case 'delete':
 			if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 				try {
-					$queries->delete('vote_sites', ['id', '=', $_GET['id']]);
+					DB::getInstance()->delete('vote_sites', ['id', '=', $_GET['id']]);
 				} catch (Exception $e) {
 					die($e->getMessage());
 				}

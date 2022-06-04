@@ -14,7 +14,7 @@ $page_title = $vote_language->get('vote', 'vote');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Get message
-$vote_message = $queries->getWhere("vote_settings", ["name", "=", "vote_message"]);
+$vote_message = DB::getInstance()->get("vote_settings", ["name", "=", "vote_message"])->results();
 $vote_message = $vote_message[0]->value;
 
 // Is vote message empty?
@@ -23,7 +23,7 @@ if (!empty($vote_message)) {
 }
 
 // Get sites from database
-$sites = $queries->getWhere("vote_sites", ["id", "<>", 0]);
+$sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
 
 $sites_array = [];
 foreach ($sites as $site) {
@@ -37,7 +37,7 @@ foreach ($sites as $site) {
 $smarty->assign([
 	'VOTE_TITLE' => $vote_language->get('vote', 'vote'),
 	'MESSAGE_ENABLED' => $message_enabled,
-	'MESSAGE' => htmlspecialchars($vote_message),
+	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
 ]);
 
