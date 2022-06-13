@@ -162,6 +162,7 @@ class Vote_Module extends Module {
 	}
 
     public function getDebugInfo(): array {
+        return [];
     }
 
     private function initialise() {
