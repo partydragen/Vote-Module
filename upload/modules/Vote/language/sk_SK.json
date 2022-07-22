@@ -1,1 +1,8 @@
-{}
+{
+    "vote/icon": "Ikona",
+    "vote/icon_example": "Príklad: <i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i>",
+    "vote/link_location": "Umiestnenie odkazu",
+    "vote/view_resource": "Zobraziť stránku modulu",
+    "vote/vote": "Hlasovanie",
+    "vote/vote_sites": "Stránky na hlasovanie"
+}
