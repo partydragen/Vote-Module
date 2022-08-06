@@ -3,7 +3,7 @@
  *	Made by Partydragen
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.0.0
  *
  *  License: MIT
  *
@@ -19,7 +19,7 @@ class Vote_Module extends Module {
 		$name = 'Vote';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>';
 		$module_version = '2.3.2';
-		$nameless_version = '2.0.0-pr13';
+		$nameless_version = '2.0.1';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -125,7 +125,7 @@ class Vote_Module extends Module {
 				} else {
 					$icon = $cache->retrieve('vote_icon');
 				}
-				
+
 				$navs[2]->add('vote_divider', mb_strtoupper($this->_vote_language->get('vote', 'vote'), 'UTF-8'), 'divider', 'top', null, $order, '');
 				$navs[2]->add('vote', $this->_vote_language->get('vote', 'vote'), URL::build('/panel/vote'), 'top', null, $order + 0.1, $icon);
 			}
@@ -153,8 +153,8 @@ class Vote_Module extends Module {
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
                         'CURRENT_VERSION' => $this->_vote_language->get('vote', 'current_version_x', ['version' => Output::getClean($this->getVersion())]),
                         'NEW_VERSION' => $this->_vote_language->get('vote', 'new_version_x', ['new_version' => Output::getClean($update_check->new_version)]),
-                        'UPDATE' => $this->_vote_language->get('vote', 'view_resource'),
-                        'UPDATE_LINK' => Output::getClean($update_check->link)
+                        'NAMELESS_UPDATE' => $this->_vote_language->get('vote', 'view_resource'),
+                        'NAMELESS_UPDATE_LINK' => Output::getClean($update_check->link)
                     ]);
                 }
             }
@@ -167,29 +167,15 @@ class Vote_Module extends Module {
 
     private function initialise() {
         // Generate tables
-        try {
-            $engine = Config::get('mysql/engine');
-            $charset = Config::get('mysql/charset');
-        } catch (Exception $e) {
-            $engine = 'InnoDB';
-            $charset = 'utf8mb4';
-        }
-        if (!$engine || is_array($engine))
-            $engine = 'InnoDB';
-        if (!$charset || is_array($charset))
-            $charset = 'utf8mb4';
-
-        $queries = new Queries();
-
 		try {
-            if (!$queries->tableExists('vote_sites')) {
-                $queries->createTable("vote_sites", " `id` int(11) NOT NULL AUTO_INCREMENT, `site` varchar(512) NOT NULL, `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+            if (!DB::getInstance()->showTables('vote_sites')) {
+                DB::getInstance()->createTable("vote_sites", " `id` int(11) NOT NULL AUTO_INCREMENT, `site` varchar(512) NOT NULL, `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)");
 
-                $queries->create('vote_sites', [
+                DB::getInstance()->insert('vote_sites', [
                     'site' => 'https://mc-server-list.com/',
                     'name' => 'MC-Server-List (Example)'
                 ]);
-                $queries->create('vote_sites', [
+                DB::getInstance()->insert('vote_sites', [
                     'site' => 'http://planetminecraft.com/',
                     'name' => 'PlanetMinecraft (Example)'
                 ]);
@@ -199,11 +185,11 @@ class Vote_Module extends Module {
 		}
 
         try {
-            if (!$queries->tableExists('vote_settings')) {
-                $queries->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+            if (!DB::getInstance()->showTables('vote_settings')) {
+                DB::getInstance()->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)");
 
                 // Insert data
-                $queries->create('vote_settings', [
+                DB::getInstance()->insert('vote_settings', [
                     'name' => 'vote_message',
                     'value' => 'You can manage this vote module in StaffCP -> Vote'
                 ]);
@@ -214,14 +200,14 @@ class Vote_Module extends Module {
 
 		try {
 			// Update main admin group permissions
-			$group = $queries->getWhere('groups', ['id', '=', 2]);
-			$group = $group[0];
+			$group = DB::getInstance()->get('groups', ['id', '=', 2])->results();
+            $group = $group[0];
 
 			$group_permissions = json_decode($group->permissions, TRUE);
 			$group_permissions['admincp.vote'] = 1;
 
 			$group_permissions = json_encode($group_permissions);
-			$queries->update('groups', 2, ['permissions' => $group_permissions]);
+			DB::getInstance()->update('groups', 2, ['permissions' => $group_permissions]);
 		} catch (Exception $e) {
 			// Error
 		}
