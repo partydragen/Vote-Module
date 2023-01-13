@@ -1,9 +1,9 @@
 <?php 
 /*
- *	Made by Partydragen
+ *  Made by Partydragen
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0
+ *  NamelessMC version 2.0.2
  *
  *  License: MIT
  *
@@ -173,7 +173,7 @@ class Vote_Module extends Module {
 
                 DB::getInstance()->insert('vote_sites', [
                     'site' => 'https://mc-server-list.com/',
-                    'name' => 'MC-Server-List (Example)'
+                    'name' => 'MC-Server-List (Earn Money)'
                 ]);
                 DB::getInstance()->insert('vote_sites', [
                     'site' => 'http://planetminecraft.com/',
