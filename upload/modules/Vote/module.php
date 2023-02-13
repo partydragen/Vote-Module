@@ -18,7 +18,7 @@ class Vote_Module extends Module {
 
 		$name = 'Vote';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>';
-		$module_version = '2.3.3';
+		$module_version = '2.3.4';
 		$nameless_version = '2.0.3';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
