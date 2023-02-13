@@ -14,8 +14,7 @@ $page_title = $vote_language->get('vote', 'vote');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Get message
-$vote_message = DB::getInstance()->get("vote_settings", ["name", "=", "vote_message"])->results();
-$vote_message = $vote_message[0]->value;
+$vote_message = Util::getSetting('vote_message', 'You can manage this vote module in StaffCP -> Vote', 'Vote');
 
 // Is vote message empty?
 if (!empty($vote_message)) {
@@ -23,10 +22,10 @@ if (!empty($vote_message)) {
 }
 
 // Get sites from database
-$sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
+$sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0]);
 
 $sites_array = [];
-foreach ($sites as $site) {
+foreach ($sites->results() as $site) {
     $sites_array[] = [
         'name' => Output::getClean($site->name),
         'url' => Output::getClean($site->site),
@@ -37,7 +36,7 @@ foreach ($sites as $site) {
 $smarty->assign([
 	'VOTE_TITLE' => $vote_language->get('vote', 'vote'),
 	'MESSAGE_ENABLED' => $message_enabled,
-	'MESSAGE' => Output::getClean($vote_message),
+	'MESSAGE' => Output::getPurified($vote_message),
 	'SITES' => $sites_array,
 ]);
 
