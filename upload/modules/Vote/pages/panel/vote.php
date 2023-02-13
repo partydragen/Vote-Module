@@ -172,8 +172,8 @@ if (!isset($_GET['action'])) {
 						// input into database
 						try {
 							DB::getInstance()->insert('vote_sites', [
-								'site' => htmlspecialchars(Input::get('vote_site_url')),
-								'name' => htmlspecialchars(Input::get('vote_site_name'))
+								'site' => Input::get('vote_site_url'),
+								'name' => Input::get('vote_site_name')
 							]);
 
 							Session::flash('staff_vote', $vote_language->get('vote', 'site_created_successfully'));
@@ -206,12 +206,11 @@ if (!isset($_GET['action'])) {
 				Redirect::to(URL::build('/panel/vote'));
 			}
 
-			$site = DB::getInstance()->get('vote_sites', ['id', '=', $_GET['id']])->results();
-			if (!count($site)) {
+			$site = DB::getInstance()->get('vote_sites', ['id', '=', $_GET['id']]);
+			if (!$site->count()) {
 				Redirect::to(URL::build('/panel/vote'));
-				die();
 			}
-			$site = $site[0];
+			$site = $site->first();
 
 			if (Input::exists()) {
 				$errors = [];
@@ -246,8 +245,8 @@ if (!isset($_GET['action'])) {
 						// input into database
 						try {
 							DB::getInstance()->update('vote_sites', $site->id, [
-								'site' => htmlspecialchars(Input::get('vote_site_url')),
-								'name' => htmlspecialchars(Input::get('vote_site_name'))
+								'site' => Input::get('vote_site_url'),
+								'name' => Input::get('vote_site_name')
 							]);
 
 							Session::flash('staff_vote', $vote_language->get('vote', 'site_updated_successfully'));
