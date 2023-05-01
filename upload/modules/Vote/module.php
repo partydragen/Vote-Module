@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.2
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -11,15 +11,15 @@
  */
 
 class Vote_Module extends Module {
-	private $_vote_language;
+	private Language $_vote_language;
 
 	public function __construct($vote_language, $pages, $cache) {
 		$this->_vote_language = $vote_language;
 
 		$name = 'Vote';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>';
-		$module_version = '2.3.4';
-		$nameless_version = '2.0.3';
+		$module_version = '2.3.5';
+		$nameless_version = '2.1.0';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 

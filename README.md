@@ -1,4 +1,4 @@
-# Vote Module for NamelessMC v2.0.3
+# Vote Module for NamelessMC v2.1.0
 
 ## Installation:
 - Upload the contents of the **upload** directory straight into your NamelessMC installation's directory
